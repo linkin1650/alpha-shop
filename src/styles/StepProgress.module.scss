@@ -1,0 +1,96 @@
+$screen-break-point: 749.5px;
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 48px;
+
+  .progress-group {
+    display: flex;
+    align-items: center;
+
+    .progress-icon {
+      display: inline-block;
+      height: 27px;
+      width: 27px;
+      margin-right: 8px;
+      position: relative;
+      border-radius: 50%;
+      background-color: black;
+      border: 1px solid black;
+  
+      .text {
+        width: inherit;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 27px;
+        text-align: center;
+        color: white;
+        position: absolute;
+      }
+    }
+
+    &[data-phase=shipping], &[data-phase=credit-card] {
+
+      .progress-icon {
+        background-color: transparent;
+        border: 1px solid var(--progress-undone-color);
+        
+        .text {
+          color: var(--progress-undone-color);
+        }
+      }
+
+      .progress-label {
+        color: var(--progress-undone-color);
+      }
+    }
+
+    .progress-label {
+      line-height: 27px;
+      font-weight: 400;
+    }
+  }
+
+  .progress-bar {
+    display: flex;
+    flex-grow: 1;
+    max-width: 60px;
+    height: 1px;
+    margin: 0px 8px;
+    border: 2px solid black;
+    background-color: black;
+
+    &:last-child {
+      display: none;
+    }
+
+    &[data-order="2"] {
+      border-color: var(--undone-progress-border);
+    }
+  }
+}
+
+@media screen and (max-width: $screen-break-point) {
+  .progress-container {
+    margin-top: 24px;
+
+    .progress-group {
+
+      .progress-icon {
+        width: 32px;
+        height: 32px;
+
+        .text {
+          line-height: 32px;
+        }
+      }
+    }
+
+    .progress-label {
+      display: none;
+    }
+  }
+}

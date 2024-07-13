@@ -16,7 +16,7 @@ function RadioGroup({ dataPrice, id, isChecked=false, text, period }) {
 
 export default function ShippingPhase() {
   return (
-    <form className="col col-12" data-phase="shipping">
+    <form style={{display: "none"}} className="col col-12" data-phase="shipping">
       <h3 className="form-title">運送方式</h3>
       <section className="form-body col col-12">
         <RadioGroup 

@@ -1,0 +1,32 @@
+$screen-break-point: 749.5px;
+
+.register-container {
+  width: 50%;
+  position: relative;
+
+  .register-title {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38px;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex: 0 0 100%;
+    align-items: flex-start;
+    justify-content: space-around;
+    max-width: 100%;
+    margin-top: 64px;
+  }
+}
+
+@media screen and (max-width: $screen-break-point) {
+  .register-container {
+
+    .form-container {
+      margin-top: 24px;
+    }
+  }
+}

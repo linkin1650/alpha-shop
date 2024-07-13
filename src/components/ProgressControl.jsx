@@ -1,6 +1,8 @@
-function ButtonGroup({ children }) {
+import styles from "../styles/ProgressControl.module.scss"
+
+function ButtonGroup({ children, style ,phase }) {
   return (
-    <section className="button-group col col-12" data-phase="address">
+    <section style={style} className={`${styles["button-group"]} col col-12`} data-phase={phase}>
       { children }
     </section>
   )
@@ -8,7 +10,7 @@ function ButtonGroup({ children }) {
 
 function NextButton() {
   return (
-    <button className="next">
+    <button className={styles["next"]}>
       下一步
       <object data="./public/icons/right-arrow.svg" className="cursor-point">
       </object>
@@ -36,15 +38,23 @@ function SubmitButton() {
 
 export default function ProgressControl() {
   return (
-    <section className="progress-control-container col col-lg-6 col-sm-12">
-      <ButtonGroup>
+    <section className={`${styles["progress-control-container"]} col col-lg-6 col-sm-12`}>
+      <ButtonGroup
+        phase={"address"}
+      >
         <NextButton />
       </ButtonGroup>
-      <ButtonGroup>
+      <ButtonGroup
+        style={{display: "none"}}
+        phase={"shipping"}
+      >
         <PrevButton />
         <NextButton />
       </ButtonGroup>
-      <ButtonGroup>
+      <ButtonGroup
+        style={{display: "none"}} 
+        phase={"credit-card"}
+      >
         <PrevButton />
         <SubmitButton />
       </ButtonGroup>

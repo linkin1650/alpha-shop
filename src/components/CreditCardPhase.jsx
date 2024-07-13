@@ -2,7 +2,7 @@ import { RowContainer, InputGroup, Input} from "./AddressPhase"
 
 export default function CreditCardPhase () {
   return (
-    <form className="col col-12" data-phase="credit-card">
+    <form style={{display: "none"}} className="col col-12" data-phase="credit-card">
       <h3 className="form-title">付款資訊</h3>
       <section className="form-body col col-12">
         <RowContainer>

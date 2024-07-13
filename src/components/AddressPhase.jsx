@@ -1,6 +1,8 @@
+import styles from "../styles/Address.module.scss"
+
 export function RowContainer({ children }) {
   return (
-    <div className="col col-12">
+    <div className={`${styles["row-container"]} col col-12`}>
       {children}
     </div>
   )
@@ -8,8 +10,8 @@ export function RowContainer({ children }) {
 
 export function InputGroup({ size, label, children }) {
   return (
-    <div className={`input-group input-w-lg-${size.lg} input-w-sm-${size.sm}`}>
-      <div className="input-label">{label}</div>
+    <div className={`${styles["input-group"]} input-w-lg-${size.lg} input-w-sm-${size.sm}`}>
+      <div className={styles["input-label"]}>{label}</div>
       { children }
     </div>
   )
@@ -17,15 +19,15 @@ export function InputGroup({ size, label, children }) {
 
 export function Input({ input }) {
   return (
-    <input type={input.type} placeholder={input.placeholder}/>
+    <input className={styles["input-container"]} type={input.type} placeholder={input.placeholder}/>
   )
 }
 
 export default function AddressPhase() {
   return (
     <form className="col col-12">
-      <h3 className="form-title">寄送地址</h3>
-      <section className="form-body col col-12">
+      <h3 className={styles["form-title"]}>寄送地址</h3>
+      <section className={`${styles["form-body"]} col col-12`}>
         <RowContainer>
           <InputGroup
             size={{
@@ -34,7 +36,7 @@ export default function AddressPhase() {
             }}
             label={"稱謂"}
           >
-            <div className="select-container">
+            <div className={styles["select-container"]}>
               <select>
                 <option value="mr" selected>先生</option>
                 <option value="ms">女士</option>
@@ -95,7 +97,7 @@ export default function AddressPhase() {
             }}
             label={"縣市"}
           >
-            <div className="select-container">
+            <div className={styles["select-container"]}>
               <select required>
                 <option value="">請選擇縣市</option>
                 <option value="KLU">基隆市</option>
