@@ -30,19 +30,20 @@ $screen-break-point: 749.5px;
         margin-right: 21px;
         overflow-clip-margin: content-box;
         overflow: clip;
+        border-radius: 4px;
       }
 
       .product-info {
         display: flex;
         flex-wrap: wrap;
         flex-grow: 1;
-        align-items: flex-start;
+        align-content: start;
 
         .product-name {
           font-size: 16px;
           line-height: 24px;
           font-weight: 400;
-          max-width: 60%;
+          max-width: 100%;
           margin-right: auto;
         }
 

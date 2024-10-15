@@ -36,9 +36,9 @@ export function CityList() {
   )
 }
 
-export default function AddressPhase() {
+export default function AddressPhase({ stepPhase }) {
   return (
-    <form className="col col-12">
+    <form style={{display: stepPhase === 1 ? "block" : "none"}} className="col col-12">
       <h3 className={styles["form-title"]}>寄送地址</h3>
       <section className={`${styles["form-body"]} col col-12`}>
         <RowContainer>

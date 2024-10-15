@@ -11,7 +11,7 @@
 
     .input-group {
       margin-top: 24px;
-      
+
       .input-label {
         font-weight: bold;
         font-size: 12px;
@@ -33,7 +33,7 @@
         background-color: transparent;
       }
 
-      .select-container select{
+      .select-container select {
         color: var(--select-true);
         background-color: transparent;
         cursor: pointer;
@@ -47,7 +47,7 @@
         border: 1px solid var(--input-border);
         border-radius: 4px;
 
-        &:invalid{
+        &:invalid {
           color: var(--select-false)
         }
       }

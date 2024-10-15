@@ -1,10 +1,11 @@
 import { RowContainer, InputGroup, Input} from "./AddressPhase"
+import styles from "../styles/CreditCardPhase.module.scss"
 
-export default function CreditCardPhase () {
+export default function CreditCardPhase ({ stepPhase }) {
   return (
-    <form style={{display: "none"}} className="col col-12" data-phase="credit-card">
-      <h3 className="form-title">付款資訊</h3>
-      <section className="form-body col col-12">
+    <form style={{display: stepPhase === 3 ? "flex" : "none"}} className="col col-12" data-phase="credit-card">
+      <h3 className={styles["form-title"]}>付款資訊</h3>
+      <section className={`${styles["form-body"]} col col-12`}>
         <RowContainer>
           <InputGroup
             size={{
@@ -21,6 +22,7 @@ export default function CreditCardPhase () {
             />
           </InputGroup>
         </RowContainer>
+        <RowContainer>
           <InputGroup
             size={{
               lg: "4",
@@ -35,6 +37,7 @@ export default function CreditCardPhase () {
               }}
             />
           </InputGroup>
+        </RowContainer>
         <RowContainer>
           <InputGroup
             size={{

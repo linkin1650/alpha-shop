@@ -8,21 +8,23 @@ function ButtonGroup({ children, style ,phase }) {
   )
 }
 
-function NextButton() {
+function NextButton({ onClick }) {
   return (
-    <button className={styles["next"]}>
+    <button className={`${styles["next"]} cursor-point`} onClick={onClick}>
       下一步
-      <object data="./public/icons/right-arrow.svg" className="cursor-point">
-      </object>
+      <svg>
+        <use xlinkHref="./public/icons/right-arrow.svg#icon-right-arrow"></use>
+      </svg>
     </button>
   )
 }
 
-function PrevButton() {
+function PrevButton({ onClick }) {
   return (
-    <button className="prev">
-      <object data="./public/icons/left-arrow.svg" className="cursor-point">
-      </object>
+    <button className={`${styles["prev"]} cursor-point`} onClick={onClick}>
+      <svg>
+        <use xlinkHref="./public/icons/left-arrow.svg#icon-left-arrow"></use>
+      </svg>
       上一步
     </button>
   )
@@ -30,32 +32,41 @@ function PrevButton() {
 
 function SubmitButton() {
   return (
-    <button className="next">
+    <button className={`${styles["next"]} cursor-point`}>
       確認下單
     </button>
   )
 }
 
-export default function ProgressControl() {
+export default function ProgressControl({ stepPhase, onNextBtnClick, onPrevBtnClick }) {
   return (
     <section className={`${styles["progress-control-container"]} col col-lg-6 col-sm-12`}>
       <ButtonGroup
+        style={{display: stepPhase === 1 ? "flex" : "none"}}
         phase={"address"}
       >
-        <NextButton />
+        <NextButton 
+          onClick={onNextBtnClick}
+        />
       </ButtonGroup>
       <ButtonGroup
-        style={{display: "none"}}
+        style={{display: stepPhase === 2 ? "flex" : "none"}}
         phase={"shipping"}
       >
-        <PrevButton />
-        <NextButton />
+        <PrevButton 
+          onClick={onPrevBtnClick}
+        />
+        <NextButton 
+          onClick={onNextBtnClick}
+        />
       </ButtonGroup>
       <ButtonGroup
-        style={{display: "none"}} 
+        style={{display: stepPhase === 3 ? "flex" : "none"}}
         phase={"credit-card"}
       >
-        <PrevButton />
+        <PrevButton 
+          onClick={onPrevBtnClick}
+        />
         <SubmitButton />
       </ButtonGroup>
     </section>

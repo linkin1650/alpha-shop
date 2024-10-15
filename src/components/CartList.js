@@ -1,4 +1,4 @@
-export const list = [
+export const initialList = [
   {
     id: '1',
     name: '貓咪罐罐',

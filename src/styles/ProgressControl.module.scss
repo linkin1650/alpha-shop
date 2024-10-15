@@ -31,8 +31,25 @@ $screen-break-point: 749.5px;
         color: #ffffff;
         margin-left: auto;
 
+        svg {
+          width: 24px;
+          height: 24px;
+          margin-left: 12px;
+        }
+
         >object {
           margin-left: 12px;
+        }
+      }
+
+      &.prev {
+        justify-content: center;
+        background-color: transparent;
+
+        svg {
+          width: 24px;
+          height: 24px;
+          margin-right: 12px;
         }
       }
     }
