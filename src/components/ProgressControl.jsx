@@ -1,4 +1,7 @@
+import { useState, useContext } from "react"
+import { Modal } from 'antd';
 import styles from "../styles/ProgressControl.module.scss"
+import { FormContext } from "./FormContext";
 
 function ButtonGroup({ children, style ,phase }) {
   return (
@@ -30,15 +33,48 @@ function PrevButton({ onClick }) {
   )
 }
 
-function SubmitButton() {
+function SubmitButton({ onClick }) {
   return (
-    <button className={`${styles["next"]} cursor-point`}>
+    <button className={`${styles["next"]} cursor-point`} onClick={onClick}>
       確認下單
     </button>
   )
 }
 
 export default function ProgressControl({ stepPhase, onNextBtnClick, onPrevBtnClick }) {
+  const { formContent } = useContext(FormContext)
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  function handleSubmitClick() {
+    setModalOpen(true);
+  }
+
+  function handleCloseModal() {
+    setModalOpen(false);
+  }
+  //比對 formContent 顯示在畫面的名稱
+  const displayMapping = {
+    title: "稱謂",
+    name: "姓名",
+    tel: "電話",
+    email: "Email",
+    city: "縣市",
+    address: "地址",
+    "shipping-type": "運送方式",
+    "name-on-credit-card": "持卡人姓名",
+    "card-number": "卡號",
+    "exp-date": "有限期限",
+    "CVC/CCV": "CVC/CCV",
+  }
+
+  //將 formContent 資料轉換成陣列
+  function formatFormContent(formContent) {
+    return Object.entries(formContent).map(([key, value]) => {
+      const displayLabel = displayMapping[key] || key;
+      return `${displayLabel}：${value}`;
+    })
+  }
+
   return (
     <section className={`${styles["progress-control-container"]} col col-lg-6 col-sm-12`}>
       <ButtonGroup
@@ -67,8 +103,20 @@ export default function ProgressControl({ stepPhase, onNextBtnClick, onPrevBtnCl
         <PrevButton 
           onClick={onPrevBtnClick}
         />
-        <SubmitButton />
+        <SubmitButton 
+          onClick={handleSubmitClick}
+        />
       </ButtonGroup>
+      
+      <Modal title="資料確認" open={isModalOpen} onOk={handleCloseModal} onCancel={handleCloseModal}>
+        <h2>請確認您的資料是否正確</h2>
+        <ul>
+          {formatFormContent(formContent).map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      </Modal>
+
     </section>
   )
 }

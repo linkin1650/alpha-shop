@@ -1,31 +1,10 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import styles from "../styles/Cart.module.scss"
-import { initialList } from "./CartList.js"
+import { CartContext } from "./CartContext"
+import { FormContext } from "./FormContext";
 
-export function CartItem({ onTotalAmountChange }) {
-  const [list, setList] = useState(initialList);
-
-  // 使用 useEffect 監聽 list 的變化
-  useEffect(() => {
-    const total = list.reduce((acc, item) => acc + item.quantity * item.price, 0);
-    onTotalAmountChange(total);
-  }, [list, onTotalAmountChange]); // 依賴 list 和 onTotalAmountChange
-
-  function handleMinusClick(id) {
-    setList(prevList => 
-      prevList.map(item =>
-        item.id === id && item.quantity > 0 ? { ...item, quantity: item.quantity - 1 } : item
-      )
-    );
-  }
-
-  function handlePlusClick(id) {
-    setList(prevList => 
-      prevList.map(item =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
-  }
+export function CartItem() {
+  const { list, handleMinusClick, handlePlusClick } = useContext(CartContext);
 
   const listItem = list.map(item => 
     <div key={item.id} className={`${styles["product-container"]} col col-12`} data-count="0" data-price={item.price}>
@@ -51,20 +30,30 @@ export function CartItem({ onTotalAmountChange }) {
   return listItem;
 }
 
-export default function Cart({ shippingPrice }) {
-  const [totalAmount, setTotalAmount] = useState(0);
+export default function Cart() {
+  const { list }=useContext(CartContext)
+  const { shippingType }=useContext(FormContext)
 
-  function handleTotalAmount(total) {
-    setTotalAmount(total);
+  let shippingPrice = 0
+  
+  switch(shippingType) {
+    case "shipping-Standard":
+      shippingPrice = 0;
+      break
+    case "shipping-dhl":
+      shippingPrice = 500;
+      break
   }
+
+  const totalAmount = list.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
   return (
     <section className={`${styles["cart-container"]} col col-lg-5 col-sm-12`}>
       <h3 className={styles["cart-title"]}>購物籃</h3>
       <section className={`${styles["product-list"]} col col-12`} data-total-price="0">
-        <CartItem 
-          onTotalAmountChange={handleTotalAmount}
-        />
+          <CartItem 
+            list={list}
+          />
       </section>
       <section className={`${styles["cart-info"]} shipping col col-12`}>
         <div className={styles["text"]}>運費</div>

@@ -1,5 +1,7 @@
+import { useContext } from "react"
 import styles from "../styles/Address.module.scss"
-import { city } from "./CityData"
+import { city } from "./CityData.js"
+import { FormContext } from "./FormContext.jsx"
 
 export function RowContainer({ children }) {
   return (
@@ -18,18 +20,18 @@ export function InputGroup({ size, label, children }) {
   )
 }
 
-export function Input({ input }) {
+export function Input({ name, input, onChange }) {
   return (
-    <input className={styles["input-container"]} type={input.type} placeholder={input.placeholder}/>
+    <input name={name} className={styles["input-container"]} type={input.type} placeholder={input.placeholder} onChange={onChange}/>
   )
 }
 
-export function CityList() {
+export function CityList({ onChange }) {
   const cities = city.map(city =>
     <option key={city.id} value={city.id}>{city.name}</option>
   );
   return (
-    <select required>
+    <select name="city" onChange={onChange} required>
       <option value="">請選擇縣市</option>
       { cities }
     </select>
@@ -37,6 +39,8 @@ export function CityList() {
 }
 
 export default function AddressPhase({ stepPhase }) {
+  const { handleFormChange } = useContext(FormContext);
+
   return (
     <form style={{display: stepPhase === 1 ? "block" : "none"}} className="col col-12">
       <h3 className={styles["form-title"]}>寄送地址</h3>
@@ -50,7 +54,7 @@ export default function AddressPhase({ stepPhase }) {
             label={"稱謂"}
           >
             <div className={styles["select-container"]}>
-              <select>
+              <select name="title" onChange={(e) => handleFormChange(e, "title")}>
                 <option value="mr" selected>先生</option>
                 <option value="ms">女士</option>
                 <option value="mx">不明</option>
@@ -65,10 +69,12 @@ export default function AddressPhase({ stepPhase }) {
             label={"姓名"}
           >
             <Input 
+              name="name"
               input={{
                 type: "text",
                 placeholder: "請輸入姓名"
               }}
+              onChange={(e) => handleFormChange(e, "name")}
             />
           </InputGroup>
         </RowContainer>
@@ -81,10 +87,12 @@ export default function AddressPhase({ stepPhase }) {
             label={"電話"}
           >
             <Input 
+              name="tel"
               input={{
                 type: "tel",
                 placeholder: "請輸入電話"
               }}
+              onChange={(e) => handleFormChange(e, "tel")}
             />
           </InputGroup>
           <InputGroup
@@ -95,10 +103,12 @@ export default function AddressPhase({ stepPhase }) {
             label={"Email"}
           >
             <Input 
+              name="email"
               input={{
                 type: "email",
                 placeholder: "請輸入電子郵件"
               }}
+              onChange={(e) => handleFormChange(e, "email")}
             />
           </InputGroup>
         </RowContainer>
@@ -111,7 +121,9 @@ export default function AddressPhase({ stepPhase }) {
             label={"縣市"}
           >
             <div className={styles["select-container"]}>
-              <CityList />
+              <CityList 
+                onChange={(e) => handleFormChange(e, "city")}
+              />
             </div>
           </InputGroup>
           <InputGroup
@@ -122,10 +134,12 @@ export default function AddressPhase({ stepPhase }) {
             label={"地址"}
           >
             <Input 
+              name="address"
               input={{
                 type: "text",
                 placeholder: "請輸入地址"
               }}
+              onChange={(e) => handleFormChange(e, "address")}
             />
           </InputGroup>
         </RowContainer>
